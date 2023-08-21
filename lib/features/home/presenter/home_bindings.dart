@@ -1,6 +1,3 @@
-import 'package:fast_trivia/core/usecases/usecase.dart';
-import 'package:fast_trivia/features/home/domain/entities/quiz.dart';
-import 'package:fast_trivia/features/home/domain/usecases/get_quiz.dart';
 import 'package:get/get.dart';
 
 import '../data/datasources/home_local_datasource.dart';
@@ -23,16 +20,8 @@ class HomeBindings implements Bindings {
       ),
     );
 
-    Get.lazyPut<UseCase<Future<Quiz>, NoParams>>(
-      () => GetQuiz(
-        Get.find(),
-      ),
-    );
-
     Get.lazyPut(
-      () => HomeController(
-        getQuiz: Get.find(),
-      ),
+      () => HomeController(),
     );
   }
 }

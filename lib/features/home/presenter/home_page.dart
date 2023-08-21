@@ -12,7 +12,7 @@ class HomePage extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppbar(),
+      appBar: const DefaultAppbar(withBackButton: false),
       backgroundColor: AppColors.infoBackgroundColor,
       body: Center(
         child: DefaultButton(
