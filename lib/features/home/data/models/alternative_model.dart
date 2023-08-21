@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import '../../domain/entities/alternative.dart';
 
 class AlternativeModel extends Alternative {

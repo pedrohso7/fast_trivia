@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/foundation.dart';
 import '../../domain/entities/alternative.dart';
 import '../../domain/entities/question.dart';
 import 'alternative_model.dart';
@@ -20,7 +19,6 @@ class QuestionModel extends Question {
         );
 
   Map<String, dynamic> toMap() {
-    debugPrint('tete');
     return {
       'id': id,
       'titulo': title,
@@ -31,7 +29,6 @@ class QuestionModel extends Question {
   }
 
   factory QuestionModel.fromMap(Map map) {
-    debugPrint('tete');
     final List<Alternative> alternatives = map['alternativas']
         .map<Alternative>(
             (alternative) => AlternativeModel.fromMap(alternative))

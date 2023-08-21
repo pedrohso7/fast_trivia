@@ -1,9 +1,7 @@
 import 'dart:convert';
-import 'package:fast_trivia/features/home/data/models/question_model.dart';
-import 'package:flutter/foundation.dart';
-
 import '../../domain/entities/question.dart';
 import '../../domain/entities/quiz.dart';
+import 'question_model.dart';
 
 class QuizModel extends Quiz {
   QuizModel(
@@ -21,7 +19,6 @@ class QuizModel extends Quiz {
   }
 
   factory QuizModel.fromMap(Map map) {
-    debugPrint('tete');
     final List<Question> questions = map['questoes']
         .map<Question>((question) => QuestionModel.fromMap(question))
         .toList();
