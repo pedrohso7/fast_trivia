@@ -1,4 +1,5 @@
 import 'package:fast_trivia/core/bindings/app_bindings.dart';
+import 'package:fast_trivia/core/routes/answer_quiz_routes.dart';
 import 'package:fast_trivia/core/routes/home_routes.dart';
 import 'package:fast_trivia/core/themes/default_theme.dart';
 import 'package:flutter/material.dart';
@@ -43,9 +44,7 @@ class FastTrivia extends StatelessWidget {
       supportedLocales: const [
         Locale('pt', 'BR'),
       ],
-      getPages: [
-        ...HomeRoutes.routers,
-      ],
+      getPages: [...HomeRoutes.routers, ...AnswerQuizRoutes.routers],
     );
   }
 }
