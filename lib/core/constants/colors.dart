@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   AppColors._();
-  // static const Color primaryColor = Color.fromARGB(255, 38, 17, 49);
+  static const Color primaryColor = Color(0xFF262329);
+  static const Color backgroundColor = Color(0xFF2f2d35);
+
+  // static const Color secondaryColor = Color(0xFF262329);
   // static const Color secondaryColor = Color.fromARGB(255, 92, 1, 92);
   // static const Color defaultBackgroundColor =
   //     Color.fromARGB(255, 236, 236, 236);
@@ -10,7 +13,7 @@ class AppColors {
   // static const Color darkGrey = Color(0xFF505050);
 
   static const Color white = Colors.white;
-  static const Color yellow = Color(0xFFE2B900);
+  static const Color yellow = Color(0xFFff9300);
   static const Color brown = Color(0xFF4B4241);
   static const Color black = Color(0xFF1A1A1A);
   static const Color lightBlack = Color(0xFF565656);

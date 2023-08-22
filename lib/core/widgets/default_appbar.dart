@@ -15,7 +15,7 @@ class DefaultAppbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: AppColors.yellow,
+      backgroundColor: AppColors.primaryColor,
       leading: Padding(
         padding: const EdgeInsets.all(AppSizes.s8),
         child: (withBackButton == true)
@@ -27,15 +27,15 @@ class DefaultAppbar extends StatelessWidget implements PreferredSizeWidget {
                 backgroundColor: AppColors.white,
                 child: Icon(
                   Icons.account_balance,
-                  color: AppColors.yellow,
+                  color: AppColors.primaryColor,
                 ),
               ),
       ),
       centerTitle: true,
       title: Image.asset(
-        AppImages.brainLogoPath,
+        AppImages.logoPath,
         fit: BoxFit.contain,
-        width: AppSizes.s64,
+        width: AppSizes.s128,
       ),
       actions: [
         IconButton(
