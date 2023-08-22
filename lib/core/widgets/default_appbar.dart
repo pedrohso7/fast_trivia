@@ -20,13 +20,16 @@ class DefaultAppbar extends StatelessWidget implements PreferredSizeWidget {
         padding: const EdgeInsets.all(AppSizes.s8),
         child: (withBackButton == true)
             ? IconButton(
-                icon: const Icon(Icons.chevron_left),
+                icon: const Icon(
+                  Icons.chevron_left,
+                  size: AppSizes.s32,
+                ),
                 onPressed: onPressBackButton,
               )
             : const CircleAvatar(
                 backgroundColor: AppColors.white,
                 child: Icon(
-                  Icons.account_balance,
+                  Icons.emoji_objects,
                   color: AppColors.primaryColor,
                 ),
               ),
@@ -35,14 +38,8 @@ class DefaultAppbar extends StatelessWidget implements PreferredSizeWidget {
       title: Image.asset(
         AppImages.logoPath,
         fit: BoxFit.contain,
-        width: AppSizes.s128,
+        width: AppSizes.s144,
       ),
-      actions: [
-        IconButton(
-          icon: const Icon(Icons.settings),
-          onPressed: () => {},
-        ),
-      ],
     );
   }
 

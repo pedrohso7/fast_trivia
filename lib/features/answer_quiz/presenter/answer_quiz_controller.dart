@@ -144,7 +144,6 @@ class AnswerQuizController extends GetxController with LoaderMixin {
 
   void onPressAlternative(int index) {
     selectedAlternative.value = index;
-    final Alternative alternative = alternatives[index];
-    selectedAlternatives[currentQuestion.value] = alternative.id;
+    selectedAlternatives[currentQuestion.value] = alternatives[index].id;
   }
 }

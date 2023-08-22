@@ -34,4 +34,5 @@ flutter:
   
   assets:
     - lib/core/assets/images/logo.png
+    - lib/core/assets/images/trivia.png
     - lib/core/assets/json/quiz.json
