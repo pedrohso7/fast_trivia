@@ -17,8 +17,8 @@ class AnsweredQuizModel extends AnsweredQuiz {
       'id': id,
       'titulo': title,
       'questoes': questions,
-      'coontagemRespostasCorretas': correctAnswersCount,
-      'alternativasSelecionadas': selectedAlternatives
+      'contagemRespostasCorretas': correctAnswersCount,
+      'alternativasSelecionadas': selectedAlternatives,
     };
   }
 

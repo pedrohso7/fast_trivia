@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../domain/entities/alternative.dart';
-import '../domain/entities/answered_quiz.dart';
 import '../domain/entities/question.dart';
 import '../domain/entities/quiz.dart';
 import '../domain/usecases/post_answered_quiz.dart';
@@ -25,12 +24,11 @@ class AnswerQuizController extends GetxController with LoaderMixin {
   final RxList<int> selectedAlternatives = <int>[].obs;
 
   final UseCase<Future<Quiz>, NoParams> _getQuiz;
-  final UseCase<Future<AnsweredQuiz>, PostAnsweredQuizParams> _postAnsweredQuiz;
+  final UseCase<Future<String>, PostAnsweredQuizParams> _postAnsweredQuiz;
 
   AnswerQuizController({
     required UseCase<Future<Quiz>, NoParams> getQuiz,
-    required UseCase<Future<AnsweredQuiz>, PostAnsweredQuizParams>
-        postAnsweredQuiz,
+    required UseCase<Future<String>, PostAnsweredQuizParams> postAnsweredQuiz,
   })  : _getQuiz = getQuiz,
         _postAnsweredQuiz = postAnsweredQuiz;
 

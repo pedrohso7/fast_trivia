@@ -1,17 +1,16 @@
 import 'package:fast_trivia/core/result/result.dart';
 import 'package:fast_trivia/core/usecases/usecase.dart';
 
-import '../entities/answered_quiz.dart';
 import '../entities/question.dart';
 import '../repositories/answer_quiz_repository_interface.dart';
 
 class PostAnsweredQuiz
-    implements UseCase<Future<AnsweredQuiz>, PostAnsweredQuizParams> {
+    implements UseCase<Future<String>, PostAnsweredQuizParams> {
   final AnswerQuizRepositoryInterface answerQuizRepository;
   PostAnsweredQuiz(this.answerQuizRepository);
 
   @override
-  Future<AnsweredQuiz> call(PostAnsweredQuizParams params) async {
+  Future<String> call(PostAnsweredQuizParams params) async {
     final IResult response =
         await answerQuizRepository.postAnsweredQuiz(params);
 

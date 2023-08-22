@@ -15,7 +15,7 @@ class AnswerQuizPage extends GetView<AnswerQuizController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: DefaultAppbar(onPressBackButton: controller.onPressBackButton),
-      backgroundColor: AppColors.infoBackgroundColor,
+      backgroundColor: AppColors.backgroundColor,
       body: SizedBox(
         width: context.width,
         height: context.height,

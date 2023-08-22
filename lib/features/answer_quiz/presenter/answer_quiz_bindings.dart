@@ -2,8 +2,8 @@ import 'package:fast_trivia/core/usecases/usecase.dart';
 import 'package:get/get.dart';
 
 import '../data/datasources/answer_quiz_local_datasource.dart';
+import '../data/datasources/answer_quiz_remote_datasource.dart';
 import '../data/repositories/answer_quiz_repository.dart';
-import '../domain/entities/answered_quiz.dart';
 import '../domain/entities/quiz.dart';
 import '../domain/repositories/answer_quiz_repository_interface.dart';
 import '../domain/usecases/get_quiz.dart';
@@ -18,10 +18,14 @@ class AnswerQuizBindings implements Bindings {
         getStorage: Get.find(),
       ),
     );
+    Get.lazyPut<AnswerQuizRemoteDataSourceInterface>(
+      () => AnswerQuizRemoteDataSource(),
+    );
 
     Get.lazyPut<AnswerQuizRepositoryInterface>(
       () => AnswerQuizRepository(
         localDataSource: Get.find(),
+        remoteDataSource: Get.find(),
       ),
     );
 
@@ -31,7 +35,7 @@ class AnswerQuizBindings implements Bindings {
       ),
     );
 
-    Get.lazyPut<UseCase<Future<AnsweredQuiz>, PostAnsweredQuizParams>>(
+    Get.lazyPut<UseCase<Future<String>, PostAnsweredQuizParams>>(
       () => PostAnsweredQuiz(
         Get.find(),
       ),
