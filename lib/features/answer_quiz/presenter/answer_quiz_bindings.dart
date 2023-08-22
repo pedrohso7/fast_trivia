@@ -3,9 +3,11 @@ import 'package:get/get.dart';
 
 import '../data/datasources/answer_quiz_local_datasource.dart';
 import '../data/repositories/answer_quiz_repository.dart';
+import '../domain/entities/answered_quiz.dart';
 import '../domain/entities/quiz.dart';
 import '../domain/repositories/answer_quiz_repository_interface.dart';
 import '../domain/usecases/get_quiz.dart';
+import '../domain/usecases/post_answered_quiz.dart';
 import 'answer_quiz_controller.dart';
 
 class AnswerQuizBindings implements Bindings {
@@ -29,8 +31,17 @@ class AnswerQuizBindings implements Bindings {
       ),
     );
 
+    Get.lazyPut<UseCase<Future<AnsweredQuiz>, PostAnsweredQuizParams>>(
+      () => PostAnsweredQuiz(
+        Get.find(),
+      ),
+    );
+
     Get.lazyPut(
-      () => AnswerQuizController(getQuiz: Get.find()),
+      () => AnswerQuizController(
+        getQuiz: Get.find(),
+        postAnsweredQuiz: Get.find(),
+      ),
     );
   }
 }

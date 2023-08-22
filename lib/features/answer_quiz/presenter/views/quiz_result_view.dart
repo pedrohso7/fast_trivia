@@ -27,11 +27,13 @@ class QuizResultView extends GetView<AnswerQuizController> {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: controller.answeredQuestions.length,
+              itemCount: controller.questions.length,
               itemBuilder: (context, index) => AnswerCorrectionDetailItem(
-                title: controller.answeredQuestions[index].title,
+                title: controller.questions[index].title,
                 onPressListItem: () => controller.onPressAlternative(index),
-                isAnswerCorrect: controller.answeredQuestions[index],
+                isAnswerCorrect:
+                    controller.questions[index].correctAlternativeId ==
+                        controller.selectedAlternatives[index],
               ),
             ),
           ),

@@ -9,24 +9,30 @@ import '../domain/entities/alternative.dart';
 import '../domain/entities/answered_quiz.dart';
 import '../domain/entities/question.dart';
 import '../domain/entities/quiz.dart';
+import '../domain/usecases/post_answered_quiz.dart';
 
 class AnswerQuizController extends GetxController with LoaderMixin {
   late final Quiz quiz;
+  final PageController pageController = PageController();
+
   final RxString title = ''.obs;
   final RxString question = ''.obs;
   final RxList<Alternative> alternatives = <Alternative>[].obs;
+  final RxList<Question> questions = <Question>[].obs;
   final RxInt currentQuestion = 0.obs;
   final RxInt selectedAlternative = AppConstants.unselectedValue.obs;
-  late final List<int> selectedAlternativesIds;
-  final RxList answeredQuestions = [].obs;
   final RxInt correctAnswersCount = 0.obs;
+  final RxList<int> selectedAlternatives = <int>[].obs;
 
   final UseCase<Future<Quiz>, NoParams> _getQuiz;
-  final PageController pageController = PageController();
+  final UseCase<Future<AnsweredQuiz>, PostAnsweredQuizParams> _postAnsweredQuiz;
 
   AnswerQuizController({
     required UseCase<Future<Quiz>, NoParams> getQuiz,
-  }) : _getQuiz = getQuiz;
+    required UseCase<Future<AnsweredQuiz>, PostAnsweredQuizParams>
+        postAnsweredQuiz,
+  })  : _getQuiz = getQuiz,
+        _postAnsweredQuiz = postAnsweredQuiz;
 
   @override
   void onReady() {
@@ -56,10 +62,11 @@ class AnswerQuizController extends GetxController with LoaderMixin {
     title.value = quiz.title;
     question.value = quiz.questions[currentQuestion.value].question;
     alternatives.value = quiz.questions[currentQuestion.value].alternatives;
+    questions.value = quiz.questions;
   }
 
   void initSelectedAlternativesArray() {
-    selectedAlternativesIds = List.generate(
+    selectedAlternatives.value = List.generate(
       quiz.questions.length,
       (index) => AppConstants.unselectedValue,
     );
@@ -67,25 +74,48 @@ class AnswerQuizController extends GetxController with LoaderMixin {
 
   void onPressBackButton() => Get.back();
 
-  void onPressStartQuiz() => pageController.animateToPage(
+  void onPressStartQuiz() {
+    goToAnswerQuizPage();
+  }
+
+  void goToAnswerQuizPage() => pageController.animateToPage(
         1,
         duration: const Duration(milliseconds: 300),
         curve: Curves.bounceOut,
       );
 
-  void finishQuiz() {
-    getAnsweredQuiz();
-    pageController.animateToPage(
-      2,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.bounceOut,
-    );
+  Future<void> finishQuiz() async {
+    final PostAnsweredQuizParams postAnsweredQuizParams = handleAnsweredQuiz();
+    await _postAnsweredQuiz(postAnsweredQuizParams);
+    goToQuizResultPage();
   }
 
-  void getAnsweredQuiz() {
-    // AnsweredQuiz answeredQuiz;
-    // answeredQuiz.id = 12;
-    // for (int i = 0; i < quiz.questions.length; i++) {}
+  void goToQuizResultPage() => pageController.animateToPage(
+        2,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.bounceOut,
+      );
+
+  PostAnsweredQuizParams handleAnsweredQuiz() {
+    correctAnswersCount.value = getCorrectAnswersCount();
+    final PostAnsweredQuizParams quizData = PostAnsweredQuizParams(
+      id: quiz.id,
+      title: quiz.title,
+      questions: quiz.questions,
+      correctAnswersCount: correctAnswersCount.value,
+      selectedAlternatives: selectedAlternatives,
+    );
+    return quizData;
+  }
+
+  int getCorrectAnswersCount() {
+    int correctAnswersCount = 0;
+    for (int i = 0; i < quiz.questions.length; i++) {
+      final bool isAnswerCorrect =
+          quiz.questions[i].correctAlternativeId == selectedAlternatives[i];
+      if (isAnswerCorrect) correctAnswersCount++;
+    }
+    return correctAnswersCount;
   }
 
   void onPressNextQuestion() {
@@ -117,6 +147,6 @@ class AnswerQuizController extends GetxController with LoaderMixin {
   void onPressAlternative(int index) {
     selectedAlternative.value = index;
     final Alternative alternative = alternatives[index];
-    selectedAlternativesIds[currentQuestion.value] = alternative.id;
+    selectedAlternatives[currentQuestion.value] = alternative.id;
   }
 }
