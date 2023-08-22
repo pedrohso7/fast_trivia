@@ -23,13 +23,12 @@ class AlternativeListItem extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: AppSizes.s8),
       child: ListTile(
         shape: RoundedRectangleBorder(
-          //<-- SEE HERE
           side: const BorderSide(width: 1, color: AppColors.yellow),
           borderRadius: BorderRadius.circular(AppSizes.s24),
         ),
-        selectedColor: AppColors.lightBlack,
-        selected: isSelected,
-        tileColor: isSelected ? AppColors.lightBlack : AppColors.white,
+        selectedColor: AppColors.warningBackgroundColor,
+        tileColor:
+            isSelected ? AppColors.warningBackgroundColor : AppColors.white,
         title: Text(
           title,
           style: AppTextStyles.defaultBlackText,

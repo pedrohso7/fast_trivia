@@ -123,27 +123,39 @@ class AnswerQuizController extends GetxController with LoaderMixin {
       finishQuiz();
       return;
     }
-    final int currentQuestionValue = currentQuestion.value;
-    currentQuestion.value = currentQuestionValue + 1;
+    currentQuestion.value++;
     getNewStateValues();
   }
 
   void onPressLastQuestion() {
-    final bool isFirstQuestion = currentQuestion.value == 0;
-    if (isFirstQuestion) return;
-    final int currentQuestionValue = currentQuestion.value;
-    currentQuestion.value = currentQuestionValue - 1;
+    currentQuestion.value--;
     getNewStateValues();
   }
 
   void getNewStateValues() {
+    getSelectedIndex();
     final Question selectedQuestion = quiz.questions[currentQuestion.value];
     question.value = selectedQuestion.question;
     alternatives.value = selectedQuestion.alternatives;
   }
 
+  void getSelectedIndex() {
+    for (int i = 0; i < alternatives.length; i++) {
+      if (selectedAlternatives[currentQuestion.value] ==
+          AppConstants.unselectedValue) {
+        selectedAlternative.value = AppConstants.unselectedValue;
+        return;
+      }
+      if (questions[currentQuestion.value].alternatives[i].id ==
+          selectedAlternatives[currentQuestion.value]) {
+        selectedAlternative.value = i;
+        return;
+      }
+    }
+  }
+
   void onPressAlternative(int index) {
-    selectedAlternative.value = index;
     selectedAlternatives[currentQuestion.value] = alternatives[index].id;
+    selectedAlternative.value = index;
   }
 }

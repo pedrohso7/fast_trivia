@@ -3,11 +3,11 @@ import 'package:fast_trivia/core/constants/sizes.dart';
 import 'package:fast_trivia/core/constants/text_style.dart';
 import 'package:fast_trivia/core/widgets/default_button.dart';
 import 'package:fast_trivia/core/widgets/filled_container.dart';
-import 'package:fast_trivia/features/answer_quiz/presenter/widgets/alternative_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../answer_quiz_controller.dart';
+import '../widgets/alternative_list_item.dart';
 
 class QuestionView extends GetView<AnswerQuizController> {
   const QuestionView({Key? key}) : super(key: key);
@@ -49,22 +49,19 @@ class QuestionView extends GetView<AnswerQuizController> {
                 }),
                 const SizedBox(height: AppSizes.s32),
                 Expanded(
-                  child: Obx(() {
-                    return ListView.builder(
-                      itemCount: controller.alternatives.length,
-                      itemBuilder: (context, index) => AlternativeListItem(
+                  child: ListView.builder(
+                    itemCount: controller.alternatives.length,
+                    itemBuilder: (context, index) => Obx(() {
+                      return AlternativeListItem(
                         alternativeNumber: index + 1,
-                        isSelected: controller.selectedAlternative.value ==
-                            controller
-                                .questions[controller.currentQuestion.value]
-                                .correctAlternativeId,
+                        isSelected:
+                            index == controller.selectedAlternative.value,
                         title: controller.alternatives[index].title,
-                        onPressListItem: () {
-                          controller.onPressAlternative(index);
-                        },
-                      ),
-                    );
-                  }),
+                        onPressListItem: () =>
+                            controller.onPressAlternative(index),
+                      );
+                    }),
+                  ),
                 ),
               ],
             ),
@@ -74,17 +71,22 @@ class QuestionView extends GetView<AnswerQuizController> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  DefaultButton(
-                    height: AppSizes.s80,
-                    width: AppSizes.s80,
-                    borderRadius: AppSizes.s80,
-                    onPressed: controller.onPressLastQuestion,
-                    child: const Icon(
-                      Icons.arrow_circle_left,
-                      color: AppColors.white,
-                      size: AppSizes.s40,
-                    ),
-                  ),
+                  Obx(() {
+                    return Visibility(
+                      visible: controller.currentQuestion.value != 0,
+                      child: DefaultButton(
+                        height: AppSizes.s80,
+                        width: AppSizes.s80,
+                        borderRadius: AppSizes.s80,
+                        onPressed: controller.onPressLastQuestion,
+                        child: const Icon(
+                          Icons.arrow_circle_left,
+                          color: AppColors.white,
+                          size: AppSizes.s40,
+                        ),
+                      ),
+                    );
+                  }),
                   DefaultButton(
                     height: AppSizes.s80,
                     width: AppSizes.s80,
