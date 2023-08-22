@@ -1,3 +1,6 @@
+import 'package:fast_trivia/core/constants/colors.dart';
+import 'package:fast_trivia/core/constants/sizes.dart';
+import 'package:fast_trivia/core/constants/text_style.dart';
 import 'package:fast_trivia/core/widgets/filled_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,33 +14,64 @@ class QuizResultView extends GetView<AnswerQuizController> {
   @override
   Widget build(BuildContext context) {
     return FilledContainer(
-      child: Column(
-        children: [
-          Text(
-            'Resultado:',
-            // onPressed: () => controller.onPressNewQuizButton(),
-          ),
-          Text(
-            'Acertos: ${controller.correctAnswersCount.value}',
-            // onPressed: () => controller.onPressNewQuizButton(),
-          ),
-          Text(
-            'Detalhes',
-            // onPressed: () => controller.onPressNewQuizButton(),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: controller.questions.length,
-              itemBuilder: (context, index) => AnswerCorrectionDetailItem(
-                title: controller.questions[index].title,
-                onPressListItem: () => controller.onPressAlternative(index),
-                isAnswerCorrect:
-                    controller.questions[index].correctAlternativeId ==
-                        controller.selectedAlternatives[index],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: AppSizes.s16,
+          horizontal: AppSizes.s24,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Resultado',
+                  style: AppTextStyles.title,
+                ),
+                (0.6 * controller.questions.length <=
+                        controller.correctAnswersCount.value)
+                    ? const Icon(Icons.check, color: AppColors.successColor)
+                    : const Icon(Icons.close, color: AppColors.errorColor),
+              ],
+            ),
+            const SizedBox(
+              height: AppSizes.s16,
+            ),
+            Text('Acertos: ${controller.correctAnswersCount.value}',
+                style: AppTextStyles.defaultYellowText),
+            const SizedBox(
+              height: AppSizes.s16,
+            ),
+            Text('Tempo gasto: ${controller.correctAnswersCount.value}',
+                style: AppTextStyles.defaultYellowText),
+            const SizedBox(
+              height: AppSizes.s16,
+            ),
+            const Divider(
+              thickness: AppSizes.s2,
+              color: AppColors.white,
+            ),
+            const SizedBox(
+              height: AppSizes.s16,
+            ),
+            const Text('Perguntas:', style: AppTextStyles.subTitle),
+            const SizedBox(
+              height: AppSizes.s16,
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: controller.questions.length,
+                itemBuilder: (context, index) => AnswerCorrectionDetailItem(
+                  title: controller.questions[index].title,
+                  onPressListItem: () => controller.onPressAlternative(index),
+                  isCorrect: controller.questions[index].correctAlternativeId ==
+                      controller.selectedAlternatives[index],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:fast_trivia/core/constants/constants.dart';
+
 import '../../domain/entities/alternative.dart';
 import '../../domain/entities/question.dart';
 import 'alternative_model.dart';
@@ -29,16 +31,17 @@ class QuestionModel extends Question {
   }
 
   factory QuestionModel.fromMap(Map map) {
-    final List<Alternative> alternatives = map['alternativas']
-        .map<Alternative>(
-            (alternative) => AlternativeModel.fromMap(alternative))
-        .toList();
+    final List<Alternative> items = map['alternativas'].map<Alternative>(
+      (alternative) {
+        return AlternativeModel.fromMap(alternative);
+      },
+    ).toList();
     return QuestionModel(
-      map['id'],
+      map['id'] ?? AppConstants.uselessValue,
       map['titulo'],
       map['pergunta'],
       map['gabarito'],
-      alternatives,
+      items,
     );
   }
 

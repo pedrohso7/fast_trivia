@@ -87,17 +87,22 @@ class QuestionView extends GetView<AnswerQuizController> {
                       ),
                     );
                   }),
-                  DefaultButton(
-                    height: AppSizes.s80,
-                    width: AppSizes.s80,
-                    borderRadius: AppSizes.s80,
-                    child: const Icon(
-                      Icons.arrow_circle_right,
-                      color: AppColors.white,
-                      size: AppSizes.s40,
-                    ),
-                    onPressed: controller.onPressNextQuestion,
-                  ),
+                  Obx(() {
+                    return DefaultButton(
+                      height: AppSizes.s80,
+                      width: AppSizes.s80,
+                      borderRadius: AppSizes.s80,
+                      onPressed: controller.onPressNextQuestion,
+                      child: Icon(
+                        (controller.currentQuestion.value + 1 ==
+                                controller.questions.length)
+                            ? Icons.check_circle_outline_sharp
+                            : Icons.arrow_circle_right,
+                        color: AppColors.white,
+                        size: AppSizes.s40,
+                      ),
+                    );
+                  }),
                 ],
               ),
             ),

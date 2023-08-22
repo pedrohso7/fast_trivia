@@ -31,10 +31,12 @@ class QuizPresentationView extends GetView<AnswerQuizController> {
                   );
                 }),
                 const SizedBox(height: AppSizes.s4),
-                Text(
-                  '${controller.questions.length + 1} Perguntas',
-                  style: AppTextStyles.defaultYellowText,
-                ),
+                Obx(() {
+                  return Text(
+                    '${controller.questions.length} Perguntas',
+                    style: AppTextStyles.defaultYellowText,
+                  );
+                }),
               ],
             ),
             const SizedBox(height: AppSizes.s32),
