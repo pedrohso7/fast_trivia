@@ -7,6 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 void main() async {
   //Bindinds
@@ -20,6 +22,11 @@ void main() async {
 
   //Local Storage
   await GetStorage.init();
+
+  //Initializing Firebase Services
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   //Execute
   runApp(const FastTrivia());
